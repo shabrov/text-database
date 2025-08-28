@@ -1,20 +1,23 @@
 #!/bin/bash
 
-set -x
-
 createDB() {
-    if [[ -z $1 ]]; then
-        echo "Database name has not been set"
-    else    
-        dbName="$1.txt"
+    [[ -z $1 ]] && return 1    
+    
+    dbName="$1.txt"
 
-        if [[ -e $dbName ]]; then 
-            echo "Database $dbName already exists"
-        else 
-            echo -e "$1\n***************************************" > $dbName
-            echo "Database $dbName created"
-        fi
-    fi
+    [[ -e "$dbName" ]] && return 2
+
+    echo -e "$1\n" > "$dbName"
+    echo -e "**********************************************\n" >> "$dbName"
+    echo "Database "$dbName" created"
+    return 0
 }
 
 createDB "$@"
+status=$?
+
+[[ $status -eq 0 ]] && echo "Success"
+[[ $status -eq 1 ]] && echo "Error: No database name provided"
+[[ $status -eq 2 ]] && echo "Error: Database already exists"
+
+exit $status
