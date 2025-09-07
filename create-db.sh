@@ -8,7 +8,7 @@ createDB() {
     [[ -e "$dbName" ]] && return 2
 
     echo -e "$1\n" > "$dbName"
-    echo -e "**********************************************\n" >> "$dbName"
+    echo -e "**********************************************" >> "$dbName"
     echo "Database "$dbName" created"
     return 0
 }
