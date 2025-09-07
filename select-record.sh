@@ -34,7 +34,7 @@ selectRecord() {
     echo "Searching for conditions: ${conditions[*]}"
 
     tail -n +4 "$db" | while read -r line; do
-        fields=($(echo "$line" | sed 's/**//g' | awk '{$1=$1; print}'))
+        fields=($(echo "$line" | sed 's/*//g' | awk '{$1=$1; print}'))
 
         match=true
         for cond in "${conditions[@]}"; do
